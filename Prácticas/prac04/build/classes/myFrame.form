@@ -33,8 +33,17 @@
                       <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="rb3" min="-2" max="-2" attributes="0"/>
-                          <Component id="rb2" min="-2" max="-2" attributes="0"/>
-                          <Component id="rb1" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="rb1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rb2" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="CheckBoxBlue" min="-2" max="-2" attributes="0"/>
+                                  <Component id="CheckBoxRed" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -50,9 +59,15 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-              <Component id="rb1" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="rb1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="CheckBoxRed" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="rb2" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="rb2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="CheckBoxBlue" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="rb3" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
@@ -105,5 +120,18 @@
         </DimensionLayout>
       </Layout>
     </Container>
+    <Component class="javax.swing.JCheckBox" name="CheckBoxRed">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Canal rojo"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CheckBoxRedActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="CheckBoxBlue">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Canal azul"/>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>

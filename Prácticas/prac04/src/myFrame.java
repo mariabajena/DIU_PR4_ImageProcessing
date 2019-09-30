@@ -18,12 +18,17 @@ public class myFrame extends javax.swing.JFrame {
     /**
      * Creates new form myFrame
      */
+    
+    
     public myFrame() {
         initComponents();
        
         rb1.setSelected(true);
         rb2.setSelected(false);
         rb3.setSelected(false);
+        
+        CheckBoxRed.setSelected(true);
+        CheckBoxBlue.setSelected(true);
         
     }
 
@@ -41,6 +46,8 @@ public class myFrame extends javax.swing.JFrame {
         rb2 = new javax.swing.JRadioButton();
         rb3 = new javax.swing.JRadioButton();
         myJPanel1 = new myJPanel();
+        CheckBoxRed = new javax.swing.JCheckBox();
+        CheckBoxBlue = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,6 +76,15 @@ public class myFrame extends javax.swing.JFrame {
             .addGap(0, 346, Short.MAX_VALUE)
         );
 
+        CheckBoxRed.setText("Canal rojo");
+        CheckBoxRed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CheckBoxRedActionPerformed(evt);
+            }
+        });
+
+        CheckBoxBlue.setText("Canal azul");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -79,8 +95,14 @@ public class myFrame extends javax.swing.JFrame {
                         .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(rb3)
-                            .addComponent(rb2)
-                            .addComponent(rb1)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(rb1)
+                                    .addComponent(rb2))
+                                .addGap(81, 81, 81)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(CheckBoxBlue)
+                                    .addComponent(CheckBoxRed)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(276, 276, 276)
                         .addComponent(myJPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -90,9 +112,13 @@ public class myFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addComponent(rb1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rb1)
+                    .addComponent(CheckBoxRed))
                 .addGap(18, 18, 18)
-                .addComponent(rb2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rb2)
+                    .addComponent(CheckBoxBlue))
                 .addGap(18, 18, 18)
                 .addComponent(rb3)
                 .addGap(67, 67, 67)
@@ -106,8 +132,17 @@ public class myFrame extends javax.swing.JFrame {
     private void rb1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb1ActionPerformed
                //System.out.print("Botón cambiado");        // TODO add your handling code here:
                System.out.print(rb1.isSelected()); 
-               myJPanel1.invertMode();
+               
     }//GEN-LAST:event_rb1ActionPerformed
+
+    private void CheckBoxRedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxRedActionPerformed
+        // TODO add your handling code here:
+        if (CheckBoxRed.isSelected()){
+            myJPanel1.invertMode(true, true, true);
+        } else {
+            myJPanel1.invertMode(false, true, true);
+        }
+    }//GEN-LAST:event_CheckBoxRedActionPerformed
 
     /**
      * @param args the command line arguments
@@ -145,6 +180,8 @@ public class myFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox CheckBoxBlue;
+    private javax.swing.JCheckBox CheckBoxRed;
     private javax.swing.ButtonGroup bgroup;
     private myJPanel myJPanel1;
     private javax.swing.JRadioButton rb1;

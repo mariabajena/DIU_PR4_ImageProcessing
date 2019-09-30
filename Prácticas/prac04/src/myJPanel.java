@@ -1,6 +1,8 @@
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.WritableRaster;
 import java.net.URL;
 import javax.imageio.ImageIO;
 
@@ -16,23 +18,39 @@ import javax.imageio.ImageIO;
  */
 public class myJPanel extends javax.swing.JPanel {
 
-    private BufferedImage img;
+    private BufferedImage img, img_copy, icon;
     /**
      * Creates new form myJPanel
      */
     public myJPanel() {
         initComponents();
         try{
-            img = ImageIO.read(new URL("https://www.dictando.com/wp-content/uploads/2018/07/dictado-mi-casa-A1.jpg"));            
+            img = ImageIO.read(new URL("https://www.dictando.com/wp-content/uploads/2018/07/dictado-mi-casa-A1.jpg"));
+            icon = ImageIO.read(new URL("https://png.pngtree.com/element_our/sm/20180626/sm_5b321ca7a1ca4.png"));            
+            img_copy = deepCopy(img);
+            
         } catch (Exception e){
             System.out.print(e);
         }
     }
+
+    static BufferedImage deepCopy(BufferedImage bi) {
+        ColorModel cm = bi.getColorModel();
+        boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
+        WritableRaster raster = bi.copyData(null);
+        return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
+    }
     
-    public void invertMode(){
+    public void invertMode(boolean c_red, boolean c_green, boolean c_blue){
+        int mask = 0x000000;
+        if (c_red) mask = mask | 0xFF0000;
+        if (c_green) mask = mask | 0x00FF00;
+        if (c_blue) mask = mask | 0x0000FF;
+        
+        img_copy = deepCopy(img);
         for (int j=0;j<img.getHeight();j++){
             for (int i=0;i<img.getWidth();i++){
-                img.setRGB(i, j, 0xFF0000 & img.getRGB(i, j));
+                img_copy.setRGB(i, j, mask & img.getRGB(i, j));
             }
         }
         repaint();
@@ -41,7 +59,8 @@ public class myJPanel extends javax.swing.JPanel {
     @Override
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
-        g.drawImage(img, 0, 0, this);
+        g.drawImage(img_copy, 0, 0, this);
+        g.drawImage(icon, 10,10,64,64, this);
     }
 
     /**
