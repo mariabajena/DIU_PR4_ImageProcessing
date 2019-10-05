@@ -4,6 +4,8 @@ import java.net.URL;
 import java.util.Arrays;
 import javax.imageio.ImageIO;
 import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -206,15 +208,47 @@ public class myFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_rb1ActionPerformed
 
     private void CheckBoxRedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxRedActionPerformed
-        myJPanel1.invertMode(CheckBoxRed.isSelected(), true, false, false);
+        try {
+            boolean isSelected = CheckBoxRed.isSelected();
+            if (!isSelected){ 
+                CheckBoxAll.setSelected(false);
+                if( myJPanel1.isOneChecked()) throw new oneCheckedException();
+            }
+            myJPanel1.invertMode(CheckBoxRed.isSelected(), true, false, false);
+            if(myJPanel1.areAllChecked()) CheckBoxAll.setSelected(true);
+        } catch(oneCheckedException e) {
+            CheckBoxRed.setSelected(true);
+        }
     }//GEN-LAST:event_CheckBoxRedActionPerformed
 
     private void CheckBoxGreenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxGreenActionPerformed
-      myJPanel1.invertMode(CheckBoxGreen.isSelected(), false, true, false);
+        try {
+            boolean isSelected = CheckBoxGreen.isSelected();
+            if (!isSelected){ 
+                CheckBoxAll.setSelected(false);
+                if( myJPanel1.isOneChecked()) throw new oneCheckedException();
+            }
+            myJPanel1.invertMode(CheckBoxGreen.isSelected(), false, true, false);
+            if(myJPanel1.areAllChecked()) CheckBoxAll.setSelected(true);
+        } catch(oneCheckedException e) {
+            CheckBoxGreen.setSelected(true);
+        }
     }//GEN-LAST:event_CheckBoxGreenActionPerformed
 
     private void CheckBoxBlueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxBlueActionPerformed
-        myJPanel1.invertMode(CheckBoxBlue.isSelected(), false, false, true);
+        try {
+            boolean isSelected = CheckBoxBlue.isSelected();
+            if (!isSelected){ 
+                CheckBoxAll.setSelected(false);
+                if( myJPanel1.isOneChecked()) throw new oneCheckedException();
+            }
+            if ((!isSelected && myJPanel1.isOneChecked())) throw new oneCheckedException();
+            
+            myJPanel1.invertMode(CheckBoxBlue.isSelected(), false, false, true);
+            if(myJPanel1.areAllChecked()) CheckBoxAll.setSelected(true);
+        } catch(oneCheckedException e) {
+            CheckBoxBlue.setSelected(true);
+        }
     }//GEN-LAST:event_CheckBoxBlueActionPerformed
 
     private void rb3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb3ActionPerformed
@@ -234,7 +268,19 @@ public class myFrame extends javax.swing.JFrame {
         repaint();    }//GEN-LAST:event_rb2ActionPerformed
 
     private void CheckBoxAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxAllActionPerformed
-       if(CheckBoxAll.isSelected()) myJPanel1.invertMode(CheckBoxAll.isSelected(), true, true, true);
+        try{
+            if(!CheckBoxAll.isSelected()) throw new DesactivateAllException();
+            else {
+               CheckBoxBlue.setSelected(true);
+               CheckBoxGreen.setSelected(true);
+               CheckBoxRed.setSelected(true);
+
+               myJPanel1.invertMode(CheckBoxAll.isSelected(), true, true, true);
+           }
+       }
+       catch (DesactivateAllException e){
+           CheckBoxAll.setSelected(true);
+       }
     }//GEN-LAST:event_CheckBoxAllActionPerformed
 
     /**
@@ -286,4 +332,18 @@ public class myFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton rb2;
     private javax.swing.JRadioButton rb3;
     // End of variables declaration//GEN-END:variables
+
+    private static class oneCheckedException extends Exception {
+
+        public oneCheckedException() {
+            JOptionPane.showMessageDialog(new JFrame(), "Al menos un canal de color tiene que estar activo!");
+        }
+    }
+
+    private static class DesactivateAllException extends Exception {
+
+        public DesactivateAllException() {
+            JOptionPane.showMessageDialog(new JFrame(), "Si quiere desactivar a algunos colores, deselecciona su canal a la derecha");
+        }
+    }
 }
