@@ -12,10 +12,7 @@ import javax.imageio.ImageIO;
  * and open the template in the editor.
  */
 
-/**
- *
- * @author Cayetano
- */
+
 public class myJPanel extends javax.swing.JPanel {
 
     private BufferedImage img, img_copy, icon;
